@@ -1,4 +1,4 @@
-# design-reveiw-tool: "StudioLens"
+# design-review-tool: "StudioLens"
 
 Small demo project to compare and review designs.
 
