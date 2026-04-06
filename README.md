@@ -1,52 +1,65 @@
-# design-reveiw-tool
+# design-reveiw-tool: "StudioLens"
 
-...
+Small demo project to compare and review designs.
 
 ## Stack
-
-- Next.js App Router
+- Next.js
+- React
 - TypeScript
 - Tailwind CSS
 - tRPC
 - Prisma with SQLite
+- Storybook
 - Docker / Docker Compose
 
-## Requirements
 
-- Docker Engine + Compose
+
 
 ## Run
+### Requirements
+- Docker Engine + Compose
 
-1. Build and start the app:
-	- `docker compose up --build`
+### Build and run
+1. Build `docker compose up --build`
 2. Open http://localhost:3000
 
 
 
+## Implementation Notes and Decisions
+
+- How to run the project locally:
+	[Run](#run)
+
+- Stack chosen and why:
+	[Stack](#stack), [More details](notes/plan.md)
+
+- Data model approach:
+	[Plan: Data](notes/plan.md#data), [Trade-off: Data](notes/trade-off.md#data)
+
+- Key decisions made:
+	[Plan](notes/plan.md)
+
+- Trade-offs or shortcuts:
+	[Trade-off](notes/trade-off.md)
+
+- What I would improve with more time:
+	- Better comparison UX
+	- Scalable data browsing and filtering
+	- Import, edit, and ranking workflows
+	- Expand documented trade-offs
+	- Tests and production-grade persistence
 
 
+## Explanation of your thinking
 
-## Import from Public Endpoint
+**How you understood the problem:**
+I saw this as an overview/decision-support tool to demo my skills.
 
-importing options from a public JSON endpoint via the `Import from URL` button
-- Default endpoint: `https://dummyjson.com/products/category/home-decoration`
+**What you chose to prioritize:**
+I focused on a functional prototype with scaleable frontend and accepted trade-offs in UI/UX polish and infrastructure complexity to finish in reasonable time with easy local deployment.
 
-### Mapping to local model
+**How you balanced product thinking, code quality, and time:**
+I focused on functionality with reusable components that could scale, and used AI tools to help me move faster when possible.
 
-- `title` -> `name` (truncated to 80 chars)
-- `description` -> `description`
-- `thumbnail` -> `imageUrl`
-- `price` -> `cost` using `Math.round(price)`
-- `rating` (0..5) -> `daylightScore` normalized to `0..1` and rounded to 2 decimals
-- `dimensions.width * dimensions.depth` -> `area` (rounded to 2 decimals, fallback `0`)
-- `weight * 2.3` (fallback: `area * 0.8`) -> `embodiedCarbon` (rounded to 2 decimals)
-- `tags[]` -> `tags` as comma-separated string (fallback: `imported`)
-- `id` and optional `stock` -> `notes`
-
-### Assumptions
-
-- publicly access, no authentication
-- returns a json with `products` array (`DummyJSON` shape)
-- some domain values are calculated or have a creative replacement
-- no duplicate detection/protection
-- The import flow is for demonstration of external data ingestion and transformation.
+**How you handled importing and mapping external data:**
+I used a single public DummyJSON endpoint and mapped the most fitting data to my model.
